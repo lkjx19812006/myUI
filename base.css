@@ -1,0 +1,196 @@
+/* 基础部分 */
+*{
+    box-sizing: border-box;
+}
+body, html, h1,h2,h3,h4,h5,h6 {
+    padding: 0;
+    margin: 0;    
+}
+
+ul, li, ol, dl, dt,dd{
+    list-style: none;
+}
+input, button, textarea{
+    outline-style: none;
+    appearance: none;
+    /* 去除表单默认样式 */
+    -webkit-appearance: none;  
+}
+
+
+/* 页面固定头 固定尾 中间滑动 开始 */
+.anyi-fixed-top {
+    position: fixed;
+    top: 0;
+    margin: auto;
+}
+.anyi-scroll-content {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.anyi-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    margin: auto;
+}
+/* 页面固定头 固定尾 中间滑动 结束 */
+
+/* loading 组件 开始 */
+.anyi-loading {
+
+}
+.anyi-loading-line {
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    background: transparent;   
+    animation: rotate 0.75s 0s linear infinite;
+}
+@keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);      
+     }
+    100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);      
+     }
+}
+/* loading 组件 结束 */
+
+
+/* 按钮组件 开始 */
+.anyi-button {
+    outline: none;
+    border: 0 none;   
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+.anyi-button-default {
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    color: #333;
+}
+.anyi-button-primary {
+    border-color: #20a0ff;
+    background: #20a0ff;
+    color: #fff;
+}
+.anyi-button-text {
+    border-color: #fff;
+    background: #fff;
+    color: #20a0ff;
+}
+.anyi-button-large {
+    padding: 10px 18px;
+    font-size: 18px;
+}
+.anyi-button-small {
+    padding: 4px 12px;
+    font-size: 14px;
+}
+.anyi-button-mini {
+    padding: 3px 6px;
+    font-size: 12px;
+}
+/* 按钮组件 结束 */
+
+
+
+/* 单选按钮相关 radio  开始*/
+.anyi-radio {
+    display: inline-block;
+    height: 20px;  
+    font-size: 0px;
+    cursor: pointer; 
+}
+.anyi-radio > span {
+    display: inline-block;
+    font-size: 16px;    
+}
+.anyi-radio-input {
+    height: 18px;
+    width: 18px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 1px solid #d0d0d0;
+    border-radius: 100%;
+    transition: all .2s;
+    position: relative;   
+    background-color: #fff;      
+}
+
+.anyi-radio-original {
+    position: absolute;
+    opacity: 0;
+    outline: none;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 18px;
+    width: 18px;
+    /* 去除表单默认样式 */
+    -webkit-appearance: radio;
+    z-index: -1;
+}
+.anyi-radio-label{
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle;
+    padding-left: 5px;   
+}
+/* 是否已经选择 */
+.is-checked {   
+    border: 6px solid #20a0ff;   
+}
+/* 是否已经禁用 */
+.is-disabled {
+    cursor: not-allowed;
+}
+.is-disabled .anyi-radio-input {
+    border-color: #d1dbe5;
+    cursor: not-allowed;
+    background-color: #eef1f6;
+}
+.is-disabled .anyi-radio-label {
+    color: #bbb;    
+}
+/* 单选按钮样式 结束 */
+
+
+/* 卡片组件 开始 */
+.anyi-card {
+    border-radius: 5px;
+    border: 1px solid #d0d0d0;
+    overflow: hidden;
+}
+.anyi-card-header {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #d0d0d0;
+}
+.anyi-card-body {
+    font-size: 16px;
+    background: #fff;
+    padding: 5px 10px;
+}
+.anyi-card-footer {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    background: #f0f0f0;
+    border-top: 1px solid #d0d0d0;
+}
+/* 卡片组件  结束 */
+
+
