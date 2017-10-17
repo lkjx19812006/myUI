@@ -40,14 +40,21 @@ input, button, textarea{
 
 /* loading 组件 开始 */
 .anyi-loading {
-
-}
-.anyi-loading-line {
-    height: 100%;
+    font-size: 0px;
     width: 100%;
-    border-radius: 100%;
-    background: transparent;   
-    animation: rotate 0.75s 0s linear infinite;
+    height: 100%;
+    vertical-align: middle;
+}
+.anyi-loading-icon { 
+    display: inline-block;  
+    vertical-align: middle;
+    animation: rotate 0.75s 0s linear infinite;   
+}
+.anyi-loading-text{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;  
+    padding-left: 8px;
 }
 @keyframes rotate {
     0% {
@@ -163,6 +170,54 @@ input, button, textarea{
     color: #bbb;    
 }
 /* 单选按钮样式 结束 */
+
+
+/* 选择开关 开始 */
+.anyi-switch {
+    position: relative;
+    height: 26px;
+    width: 48px;
+    border-radius: 13px;
+    background: #f0f0f0;
+    cursor: pointer;
+}
+.anyi-switch-bgc {
+    position: absolute;
+    height: 26px;
+    width: 48px;
+    left: 0;
+    top: 0;
+    border: 2px solid #d0d0d0;
+    border-radius: 13px;
+    transition: all .2s;
+    z-index: 1;
+}
+.anyi-switch-input {
+    display: none;
+    position: absolute;
+    z-index: -1;
+    background: transparent;
+}
+.anyi-switch-button {
+    height: 26px;
+    width: 26px;
+    border-radius: 13px;
+    position: absolute;
+    left: -1px;
+    top: 0px;
+    box-shadow: 0 0 5px #666;
+    background: #fff;
+    transition: all .2s;
+    z-index: 2;
+}
+.anyi-switch-bgc.anyi-switch-is-checked {
+    border-width: 13px;
+    border-color: #20a0ff;
+}
+.anyi-switch-button.anyi-switch-is-checked{
+    left: 22px;
+}
+/* 选择开关 结束*/
 
 
 /* 卡片组件 开始 */
