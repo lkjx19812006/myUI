@@ -84,6 +84,12 @@ if (Vue) {
     /**
      * loading 组件
      * anyi-loading
+     * @param text: String, xxx
+     * @param size: String, '18px'
+     * @param type: String, inline || wrap
+     * @param color: String, '#ff0000'
+     * @param loadingColor: String, '#ff0000'
+     * @param loadingWidth: String '40px'
      */
     Vue.component('anyi-loading', {
         name: 'AnyiLoading',
@@ -166,53 +172,53 @@ if (Vue) {
     /**
      * anyi-button 
      * 按钮组件
+     * @param type 按钮类型
+     * @param size 按钮大小
+     * @param loading 按钮是否处于加载状态
+     * @param loadConfig loading的配置项 配置内容 同 anyi-loading一致
      */
     Vue.component('anyi-button', {
         name: 'AnyiButton',
         componentName: 'AnyiButton',
-        template: `<button @click="click" type="button" class="anyi-button" :class="[typeClass, sizeClass]">                       
-                        <span v-if="!loading"><slot></slot></span>
-                        <span></span>
-                   </button>`,
+        functional: true,
+        render: function (createElement, context) {
+            var slotContent = context.children;
+            if (context.props.loading) {
+                slotContent = [
+                    createElement('anyi-loading', {
+                        props: {
+                            text: context.props.loadConfig && context.props.loadConfig.text || '正在加载',
+                            size: context.props.loadConfig && context.props.loadConfig.size || '16px',
+                            type: context.props.loadConfig && context.props.loadConfig.type || 'inline',
+                            color: context.props.loadConfig && context.props.loadConfig.color || '#fff',
+                            loadingColor: context.props.loadConfig && context.props.loadConfig.loadingColor || '#fff',
+                            loadingWidth: context.props.loadConfig && context.props.loadConfig.loadingWidth || '3px'
+                        }
+                    })
+                ]
+            }
+            return createElement('button', {
+                class: {
+                    'anyi-button': true,
+                    'anyi-button-default': true,
+                    'anyi-button-text': context.props.type == 'text',
+                    'anyi-button-primary': context.props.type == 'primary',
+                    'anyi-button-large': context.props.size == 'large',
+                    'anyi-button-small': context.props.size == 'small',
+                    'anyi-button-mini': context.props.size == 'mini',
+                    'anyi-button-loading': context.props.loading
+                },
+                on: {
+                    click: context.props.loading ? function () { } : context.listeners.click
+                }
+            }, slotContent)
+        },
         props: {
             type: String,
             size: String,
             loading: Boolean,
-            loadingText: {
-                type: String,
-                default: '加载中'
-            }
-        },
-        computed: {
-            typeClass: function () {
-                switch (this.type) {
-                    case 'text':
-                        return 'anyi-button-text'
-                    case 'primary':
-                        return 'anyi-button-primary';
-                    default:
-                        return 'anyi-button-default';
-                }
-            },
-            sizeClass: function () {
-                switch (this.size) {
-                    case 'large':
-                        return 'anyi-button-large';
-                    case 'small':
-                        return 'anyi-button-small';
-                    case 'mini':
-                        return 'anyi-button-mini';
-                    default:
-                        return '';
-                }
-            }
-        },
-        methods: {
-            click: function () {
-                this.$emit('click')
-            }
+            loadConfig: Object
         }
-
     })
 
     /**
@@ -327,7 +333,6 @@ if (Vue) {
         }
     })
 
-
     /**
      * switch 开关组件
      */
@@ -337,7 +342,8 @@ if (Vue) {
         render: function (createElement) {
             return createElement('div', {
                 class: {
-                    'anyi-switch': true
+                    'anyi-switch': true,
+                    'anyi-switch-disabled': this.disabled
                 },
                 on: {
                     click: this.switchChange
@@ -346,53 +352,126 @@ if (Vue) {
                     createElement('span', {
                         class: {
                             'anyi-switch-bgc': true,
-                            'anyi-switch-is-checked': this.value
+                            'anyi-switch-is-checked': this.value,
+                            'anyi-switch-disabled': this.disabled
                         }
                     }, [
                             createElement('input', {
                                 class: {
-                                    'anyi-switch-input': true
+                                    'anyi-switch-input': true,
+                                    'anyi-switch-disabled': this.disabled
                                 },
                                 attrs: {
                                     type: 'checkbox',
                                     value: this.value,
-                                    checked: this.value
+                                    checked: this.value,
+                                    disabled: this.disabled
                                 }
                             })
                         ]),
                     createElement('span', {
                         class: {
                             'anyi-switch-button': true,
-                            'anyi-switch-is-checked': this.value
+                            'anyi-switch-is-checked': this.value,
+                            'anyi-switch-disabled': this.disabled
                         },
                     })
                 ])
         },
         props: {
             value: Boolean,
+            disabled: Boolean
         },
         model: {
             event: 'switch'
         },
-<<<<<<< HEAD
         watch: {
             value: function (value) {
-=======
-        watch:{
-            value: function(value){
->>>>>>> ce48cd6a2c1ff85fcfc22c3a478bbffc156e4450
                 this.$emit('switch', value)
             }
         },
         methods: {
             switchChange: function () {
+                if (this.disabled) return;
                 this.value = !this.value;
                 this.$emit('switch', this.value);
             }
         }
     })
 
-
+    /**
+     * input 输入框组件
+     */
+    Vue.component('anyi-input', {
+        name: 'AnyiInput',
+        componentName: 'AnyiInput',
+        render: function (createElement) {
+            var slotContent = [
+                createElement('input', {
+                    class: {
+                        'anyi-input-input': true
+                    },
+                    attrs: {
+                        type: this.type,
+                        placeholder: this.placeholder,
+                        value: this.value
+                    },
+                    on: {
+                        input: this.change
+                    }
+                })
+            ];
+            //设置label 标题后 动态创建输入框标题
+            if (this.label) {
+                var _self = this;
+                var getLabel = function () {
+                    return createElement('span', {
+                        class: {
+                            'anyi-input-label': true
+                        },
+                        style: {
+                            width: _self.labelWidth || '80px',
+                            'text-align': _self.labelPosition || 'left'
+                        }
+                    }, _self.label)
+                }
+                slotContent.unshift(
+                    getLabel()
+                );
+            };
+            return createElement('label', {
+                class: {
+                    'anyi-input': true
+                },
+                style: {
+                    'padding-left': this.labelWidth ? this.labelWidth : '80px',
+                    'border-bottom': this.border ? '1px solid #d0d0d0' : '',
+                }
+            }, slotContent)
+        },
+        props: {
+            value: String,//v-model 双向绑定
+            type: String,
+            border: Boolean,
+            label: String,
+            labelWidth: String,
+            labelPosition: String,
+            placeholder: String,
+        },
+        model: {
+            event: 'input'
+        },
+        watch: {
+            value: function (value) {
+                this.$emit('change', value);
+            }
+        },
+        methods: {
+            change: function (e) {
+                this.$emit('input', e.target.value);
+            }
+        }
+    })
 
 
     /**

@@ -57,7 +57,7 @@
                         <anyi-button type="text">
                             文字按鈕
                         </anyi-button>
-                        <anyi-button type="primary" size="large" @click="alert('sadfasd')">
+                        <anyi-button type="primary" size="large" @click="loading = !loading">
                             超大按鈕
                         </anyi-button>
                         <anyi-button type="primary">
@@ -69,8 +69,8 @@
                         <anyi-button type="primary" size="mini">
                             迷你按钮
                         </anyi-button>
-                        <anyi-button type="primary">
-
+                        <anyi-button type="primary" :loading="loading" @click="loading = !loading">
+                            提交
                         </anyi-button>
                     </anyi-card-body>
                     <anyi-card-footer>
@@ -141,8 +141,15 @@
                         <anyi-radio v-model="myradio" label="4" style="margin-right: 10px;">
                             选项4
                         </anyi-radio>
-                        <anyi-switch style="margin-top: 10px" @change="console.log(myswitch, myradio)" v-model="myswitch">
+                        <anyi-switch :disabled="false" style="margin-top: 10px" @change="console.log(myswitch, myradio)" v-model="myswitch">
                         </anyi-switch>
+
+                        <anyi-input placeholder="请输入XXX" label-width="120px" label-position="left" label="输入框1" border>
+                        </anyi-input>
+                        <anyi-input placeholder="请输入XXX" @change="console.log(inputValue)" v-model="inputValue" label="输入框2" border>
+                        </anyi-input>
+
+
                     </anyi-card-body>
                 </anyi-card>
 
@@ -162,8 +169,10 @@
             el: '#box',
             data: function () {
                 return {
+                    loading: true,
                     myradio: '1',
                     myswitch: true,
+                    inputValue: '123213213'
                 }
             },
             methods: {
