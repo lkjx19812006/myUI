@@ -374,8 +374,13 @@ if (Vue) {
         model: {
             event: 'switch'
         },
+<<<<<<< HEAD
         watch: {
             value: function (value) {
+=======
+        watch:{
+            value: function(value){
+>>>>>>> ce48cd6a2c1ff85fcfc22c3a478bbffc156e4450
                 this.$emit('switch', value)
             }
         },
