@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="base.css">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .header,
+        .footer {
+            background: #f0f0f0;
+            line-height: 45px;
+            text-align: center;
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+            z-index: 9999;
+        }
+
+        .footer {
+            border-bottom: none;
+            border-top: 1px solid #ccc;
+        }
+
+        .content {
+            padding: 0 10px;
+        }
+
+        .wrap {}
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <anyi-page-view style="padding-top: 45px; padding-bottom: 51px">
+            <div class="header anyi-fixed-top" slot="header">
+                我是头部
+            </div>
+            <div class="content anyi-scroll-content">
+                <!-- 按钮组 -->
+                <anyi-card>
+                    <anyi-card-header title="按钮组">
+                    </anyi-card-header>
+                    <anyi-card-body>
+                        <anyi-button>
+                            默认按钮
+                        </anyi-button>
+                        <anyi-button type="primary">
+                            主要按钮
+                        </anyi-button>
+                        <anyi-button type="text">
+                            文字按鈕
+                        </anyi-button>
+                        <anyi-button type="primary" size="large" @click="alert('sadfasd')">
+                            超大按鈕
+                        </anyi-button>
+                        <anyi-button type="primary">
+                            正常按钮
+                        </anyi-button>
+                        <anyi-button type="primary" size="small">
+                            小型按鈕
+                        </anyi-button>
+                        <anyi-button type="primary" size="mini">
+                            迷你按钮
+                        </anyi-button>
+                        <anyi-button type="primary">
+
+                        </anyi-button>
+                    </anyi-card-body>
+                    <anyi-card-footer>
+                        <div style="text-align:center">按钮组结束</div>
+                    </anyi-card-footer>
+                </anyi-card>
+                <!-- loading组 -->
+                <anyi-card>
+                    <anyi-card-header title="loading组">
+                    </anyi-card-header>
+                    <anyi-card-body style="background: red">
+                        <anyi-loading>
+                            <anyi-loading-icon>
+                            </anyi-loading-icon>
+                            <anyi-loading-text>
+                            </anyi-loading-text>
+                        </anyi-loading>
+                        <anyi-loading>
+                            <anyi-loading-icon style="margin-bottom: 30px" size="40px">
+                            </anyi-loading-icon>
+                            <anyi-loading-text text="改变大小...">
+                            </anyi-loading-text>
+                        </anyi-loading>
+                        <anyi-loading>
+                            <anyi-loading-icon size="40px" loading-width="5px">
+                            </anyi-loading-icon>
+                            <anyi-loading-text text="改变Icon宽度...">
+                            </anyi-loading-text>
+                        </anyi-loading>
+                        <anyi-loading>
+                            <anyi-loading-icon size="40px" loading-width="5px" loading-color="red">
+                            </anyi-loading-icon>
+                            <anyi-loading-text text="改变Icon颜色...">
+                            </anyi-loading-text>
+                        </anyi-loading>
+                        <anyi-loading type="wrap">
+                            <anyi-loading-icon size="40px">
+                            </anyi-loading-icon>
+                            <anyi-loading-text text="文字换行显示...">
+                            </anyi-loading-text>
+                        </anyi-loading>
+                        <anyi-loading type="wrap">
+                            <anyi-loading-icon size="40px">
+                            </anyi-loading-icon>
+                            <anyi-loading-text text="文字颜色..." color="red">
+                            </anyi-loading-text>
+                        </anyi-loading>
+                        <anyi-loading text="自动添加icon和文字组件" size="40px" type="wrap" loading-width="5px" loading-color="#f38560">
+                        </anyi-loading>
+                    </anyi-card-body>
+                </anyi-card>
+
+                <!-- 表单组 -->
+                <anyi-card>
+                    <anyi-card-header title="表单组"></anyi-card-header>
+                    <anyi-card-body>
+                        <anyi-radio-group v-model="myradio" @change="change">
+                            <anyi-radio label="1" :disabled="true" style="margin-right: 10px;">
+                                选项1
+                            </anyi-radio>
+                            <anyi-radio label="2" style="margin-right: 10px;">
+                                选项2
+                            </anyi-radio>
+                            <anyi-radio label="3" style="margin-right: 10px;">
+                                选项3
+                            </anyi-radio>
+                        </anyi-radio-group>
+                        <anyi-radio v-model="myradio" label="4" style="margin-right: 10px;">
+                            选项4
+                        </anyi-radio>
+                        <anyi-switch style="margin-top: 10px" @change="console.log(myswitch, myradio)" v-model="myswitch">
+                        </anyi-switch>
+                    </anyi-card-body>
+                </anyi-card>
+
+                <div style="margin-bottom: 100px;">
+                </div>
+            </div>
+            <div class="footer anyi-fixed-bottom" slot="footer">
+                我是尾部
+            </div>
+        </anyi-page-view>
+    </div>
+    <script src="./vue.min.js"></script>
+    <script src="./utils.js"></script>
+    <script src="./common.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: function () {
+                return {
+                    myradio: '1',
+                    myswitch: true,
+                }
+            },
+            methods: {
+                btnClick: function () {
+                    console.log(this.myswitch)
+                },
+                change: function (value) {
+                    console.log(value);
+                }
+            }
+        })
+    </script>
+</body>
+
+
+</html>

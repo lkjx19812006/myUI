@@ -1,0 +1,26 @@
+{
+    "name": "PEcard",
+    "version": "1.0.0",
+    "description": "PEcord project",
+    "author": "yinqian",
+    "private": true,
+    "scripts": {
+        "dev": "browser-sync start --server --no-open  --files **/*.css, **/*.html, **/*.js"
+    },
+    "dependencies": {
+
+    },
+    "devDependencies": {
+
+    },
+    "engines": {
+      "node": ">= 4.0.0",
+      "npm": ">= 3.0.0"
+    },
+    "browserslist": [
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 8"
+    ]
+  }
+  
